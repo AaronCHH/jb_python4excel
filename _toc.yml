@@ -1,0 +1,19 @@
+# Table of content
+# Learn more at https://jupyterbook.org/customize/toc.html
+#
+- file: intro
+- file: ch02
+- file: ch03
+- file: ch04
+- file: ch05
+- file: ch06
+- file: ch07
+- file: ch08
+- file: ch09
+- file: ch11
+- file: ch12
+- file: appendixC
+# - file: content
+#   sections:
+#     - file: markdown
+#     - file: notebooks

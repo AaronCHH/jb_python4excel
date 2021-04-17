@@ -1,0 +1,1287 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ch08 Excel File Manipulation with Reader and Writer &#8212; My sample book</title>
+    
+  <link rel="stylesheet" href="_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Ch09 Excel Automation" href="ch09.html" />
+    <link rel="prev" title="Ch7 Excel File Manipulation with pandas" href="ch07.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="index.html">
+  
+  <img src="_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">My sample book</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro.html">
+   Welcome to your Jupyter Book
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="ch02.html">
+   Ch2 Development Environment
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ch03.html">
+   Ch03 Getting Started with Python
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ch04.html">
+   Ch04 NumPy Foundations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ch05.html">
+   Ch05 Data Analysis with pandas
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ch06.html">
+   Ch06 Time Series Analysis with pandas
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ch07.html">
+   Ch7 Excel File Manipulation with pandas
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Ch08 Excel File Manipulation with Reader and Writer
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="#advanced-topics">
+   Advanced Topics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ch09.html">
+   Ch09 Excel Automation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ch11.html">
+   Ch11 The Python Package Tracker
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ch12.html">
+   Ch12 User-Defined Functions (UDFs)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="appendixC.html">
+   Appendix C
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/ch08.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fch08.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/ch08.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i>
+            Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Ch08 Excel File Manipulation with Reader and Writer
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-reader-and-writer-packages">
+     The Reader and Writer Packages
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#openpyxl">
+       OpenPyXL
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#reading-with-openpyxl">
+       Reading with OpenPyXL
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#writing-with-openpyxl">
+       Writing with OpenPyXL
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#editing-with-openpyxl">
+       Editing with OpenPyXL
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#xlsxwriter">
+       XlsxWriter
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#pyxlsb">
+       pyxlsb
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#xlrd-xlwt-and-xlutils">
+       xlrd, xlwt and xlutils
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#reading-with-xlrd">
+       Reading with xlrd
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#writing-with-xlwt">
+       Writing with xlwt
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#editing-with-xlutils">
+       Editing with xlutils
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#advanced-topics">
+   Advanced Topics
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#working-with-big-files">
+     Working with Big Files
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id1">
+       Writing with OpenPyXL
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#writing-with-xlsxwriter">
+       Writing with XlsxWriter
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id2">
+       Reading with xlrd
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id3">
+       Reading with OpenPyXL
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#reading-in-parallel">
+       Reading in Parallel
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#formatting-dataframes-in-excel">
+     Formatting DataFrames in Excel
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+        
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="ch08-excel-file-manipulation-with-reader-and-writer">
+<h1>Ch08 Excel File Manipulation with Reader and Writer<a class="headerlink" href="#ch08-excel-file-manipulation-with-reader-and-writer" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="the-reader-and-writer-packages">
+<h2>The Reader and Writer Packages<a class="headerlink" href="#the-reader-and-writer-packages" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="openpyxl">
+<h3>OpenPyXL<a class="headerlink" href="#openpyxl" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="reading-with-openpyxl">
+<h3>Reading with OpenPyXL<a class="headerlink" href="#reading-with-openpyxl" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">openpyxl</span>
+<span class="kn">import</span> <span class="nn">excel</span>
+<span class="kn">import</span> <span class="nn">datetime</span> <span class="k">as</span> <span class="nn">dt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Open the workbook to read cell values.</span>
+<span class="c1"># The file is automatically closed again after loading the data.</span>
+<span class="n">book</span> <span class="o">=</span> <span class="n">openpyxl</span><span class="o">.</span><span class="n">load_workbook</span><span class="p">(</span><span class="s2">&quot;xl/stores.xlsx&quot;</span><span class="p">,</span> <span class="n">data_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get a worksheet object by name or index (0-based)</span>
+<span class="n">sheet</span> <span class="o">=</span> <span class="n">book</span><span class="p">[</span><span class="s2">&quot;2019&quot;</span><span class="p">]</span>
+<span class="n">sheet</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">worksheets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get a list with all sheet names</span>
+<span class="n">book</span><span class="o">.</span><span class="n">sheetnames</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;2019&#39;, &#39;2020&#39;, &#39;2019-2020&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Loop through the sheet objects.</span>
+<span class="c1"># Instead of &quot;name&quot;, openpyxl uses &quot;title&quot;.</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">book</span><span class="o">.</span><span class="n">worksheets</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2019
+2020
+2019-2020
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Getting the dimensions,</span>
+<span class="c1"># i.e. the used range of the sheet</span>
+<span class="n">sheet</span><span class="o">.</span><span class="n">max_row</span><span class="p">,</span> <span class="n">sheet</span><span class="o">.</span><span class="n">max_column</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(8, 6)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Read the value of a single cell</span>
+<span class="c1"># using &quot;A1&quot; notation and using cell indices (1-based)</span>
+<span class="n">sheet</span><span class="p">[</span><span class="s2">&quot;B6&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+<span class="n">sheet</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;Boston&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Read in a range of cell values by using our excel module</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">excel</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">book</span><span class="p">[</span><span class="s2">&quot;2019&quot;</span><span class="p">],</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">data</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>  <span class="c1"># Print the first two rows</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[&#39;Store&#39;, &#39;Employees&#39;, &#39;Manager&#39;, &#39;Since&#39;, &#39;Flagship&#39;],
+ [&#39;New York&#39;, 10, &#39;Sarah&#39;, datetime.datetime(2018, 7, 20, 0, 0), False]]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="writing-with-openpyxl">
+<h3>Writing with OpenPyXL<a class="headerlink" href="#writing-with-openpyxl" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">openpyxl</span>
+<span class="kn">from</span> <span class="nn">openpyxl.drawing.image</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">openpyxl.chart</span> <span class="kn">import</span> <span class="n">BarChart</span><span class="p">,</span> <span class="n">Reference</span>
+<span class="kn">from</span> <span class="nn">openpyxl.styles</span> <span class="kn">import</span> <span class="n">Font</span><span class="p">,</span> <span class="n">colors</span>
+<span class="kn">from</span> <span class="nn">openpyxl.styles.borders</span> <span class="kn">import</span> <span class="n">Border</span><span class="p">,</span> <span class="n">Side</span>
+<span class="kn">from</span> <span class="nn">openpyxl.styles.alignment</span> <span class="kn">import</span> <span class="n">Alignment</span>
+<span class="kn">from</span> <span class="nn">openpyxl.styles.fills</span> <span class="kn">import</span> <span class="n">PatternFill</span>
+<span class="kn">import</span> <span class="nn">excel</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Instantiate a workbook</span>
+<span class="n">book</span> <span class="o">=</span> <span class="n">openpyxl</span><span class="o">.</span><span class="n">Workbook</span><span class="p">()</span>
+
+<span class="c1"># Get the first sheet and give it a name</span>
+<span class="n">sheet</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">active</span>
+<span class="n">sheet</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Sheet1&quot;</span>
+
+<span class="c1"># Writing individual cells using A1 notation</span>
+<span class="c1"># and cell indices (1-based)</span>
+<span class="n">sheet</span><span class="p">[</span><span class="s2">&quot;A1&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s2">&quot;Hello 1&quot;</span>
+<span class="n">sheet</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;Hello 2&quot;</span><span class="p">)</span>
+
+<span class="c1"># Formatting: fill color, alignment, border and font</span>
+<span class="n">font_format</span> <span class="o">=</span> <span class="n">Font</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;FF0000&quot;</span><span class="p">,</span> <span class="n">bold</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">thin</span> <span class="o">=</span> <span class="n">Side</span><span class="p">(</span><span class="n">border_style</span><span class="o">=</span><span class="s2">&quot;thin&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;FF0000&quot;</span><span class="p">)</span>
+<span class="n">sheet</span><span class="p">[</span><span class="s2">&quot;A3&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s2">&quot;Hello 3&quot;</span>
+<span class="n">sheet</span><span class="p">[</span><span class="s2">&quot;A3&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="n">font_format</span>
+<span class="n">sheet</span><span class="p">[</span><span class="s2">&quot;A3&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">border</span> <span class="o">=</span> <span class="n">Border</span><span class="p">(</span><span class="n">top</span><span class="o">=</span><span class="n">thin</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="n">thin</span><span class="p">,</span>
+                            <span class="n">right</span><span class="o">=</span><span class="n">thin</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="n">thin</span><span class="p">)</span>
+<span class="n">sheet</span><span class="p">[</span><span class="s2">&quot;A3&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">alignment</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">(</span><span class="n">horizontal</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">)</span>
+<span class="n">sheet</span><span class="p">[</span><span class="s2">&quot;A3&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">fill</span> <span class="o">=</span> <span class="n">PatternFill</span><span class="p">(</span><span class="n">fgColor</span><span class="o">=</span><span class="s2">&quot;FFFF00&quot;</span><span class="p">,</span> <span class="n">fill_type</span><span class="o">=</span><span class="s2">&quot;solid&quot;</span><span class="p">)</span>
+
+<span class="c1"># Number formatting (using Excel&#39;s formatting strings)</span>
+<span class="n">sheet</span><span class="p">[</span><span class="s2">&quot;A4&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mf">3.3333</span>
+<span class="n">sheet</span><span class="p">[</span><span class="s2">&quot;A4&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">number_format</span> <span class="o">=</span> <span class="s2">&quot;0.00&quot;</span>
+
+<span class="c1"># Date formatting (using Excel&#39;s formatting strings)</span>
+<span class="n">sheet</span><span class="p">[</span><span class="s2">&quot;A5&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">13</span><span class="p">)</span>
+<span class="n">sheet</span><span class="p">[</span><span class="s2">&quot;A5&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">number_format</span> <span class="o">=</span> <span class="s2">&quot;mm/dd/yy&quot;</span>
+
+<span class="c1"># Formula: you must use the English name of the formula</span>
+<span class="c1"># with commas as delimiters</span>
+<span class="n">sheet</span><span class="p">[</span><span class="s2">&quot;A6&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s2">&quot;=SUM(A4, 2)&quot;</span>
+
+<span class="c1"># Image</span>
+<span class="n">sheet</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/python.png&quot;</span><span class="p">),</span> <span class="s2">&quot;C1&quot;</span><span class="p">)</span>
+
+<span class="c1"># Two-dimensional list (we&#39;re using our excel module)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">[[</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;North&quot;</span><span class="p">,</span> <span class="s2">&quot;South&quot;</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;Last Year&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;This Year&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">]]</span>
+<span class="n">excel</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">sheet</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="s2">&quot;A10&quot;</span><span class="p">)</span>
+
+<span class="c1"># Chart</span>
+<span class="n">chart</span> <span class="o">=</span> <span class="n">BarChart</span><span class="p">()</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="s2">&quot;col&quot;</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Sales Per Region&quot;</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">x_axis</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Regions&quot;</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">y_axis</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Sales&quot;</span>
+<span class="n">chart_data</span> <span class="o">=</span> <span class="n">Reference</span><span class="p">(</span><span class="n">sheet</span><span class="p">,</span> <span class="n">min_row</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">min_col</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                       <span class="n">max_row</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">max_col</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">chart_categories</span> <span class="o">=</span> <span class="n">Reference</span><span class="p">(</span><span class="n">sheet</span><span class="p">,</span> <span class="n">min_row</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">min_col</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                             <span class="n">max_row</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_col</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="c1"># from_rows interprets the data in the same way</span>
+<span class="c1"># as if you would add a chart manually in Excel</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">add_data</span><span class="p">(</span><span class="n">chart_data</span><span class="p">,</span> <span class="n">titles_from_data</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">from_rows</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">set_categories</span><span class="p">(</span><span class="n">chart_categories</span><span class="p">)</span>
+<span class="n">sheet</span><span class="o">.</span><span class="n">add_chart</span><span class="p">(</span><span class="n">chart</span><span class="p">,</span> <span class="s2">&quot;A15&quot;</span><span class="p">)</span>
+
+<span class="c1"># Saving the workbook creates the file on disk</span>
+<span class="n">book</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;openpyxl.xlsx&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">book</span> <span class="o">=</span> <span class="n">openpyxl</span><span class="o">.</span><span class="n">Workbook</span><span class="p">()</span>
+<span class="n">sheet</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">active</span>
+<span class="n">sheet</span><span class="p">[</span><span class="s2">&quot;A1&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s2">&quot;This is a template&quot;</span>
+<span class="n">book</span><span class="o">.</span><span class="n">template</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">book</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;template.xltx&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="editing-with-openpyxl">
+<h3>Editing with OpenPyXL<a class="headerlink" href="#editing-with-openpyxl" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Read the stores.xlsx file, change a cell</span>
+<span class="c1"># and store it under a new location/name.</span>
+<span class="n">book</span> <span class="o">=</span> <span class="n">openpyxl</span><span class="o">.</span><span class="n">load_workbook</span><span class="p">(</span><span class="s2">&quot;xl/stores.xlsx&quot;</span><span class="p">)</span>
+<span class="n">book</span><span class="p">[</span><span class="s2">&quot;2019&quot;</span><span class="p">][</span><span class="s2">&quot;A1&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s2">&quot;modified&quot;</span>
+<span class="n">book</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;stores_edited.xlsx&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">book</span> <span class="o">=</span> <span class="n">openpyxl</span><span class="o">.</span><span class="n">load_workbook</span><span class="p">(</span><span class="s2">&quot;xl/macro.xlsm&quot;</span><span class="p">,</span> <span class="n">keep_vba</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">book</span><span class="p">[</span><span class="s2">&quot;Sheet1&quot;</span><span class="p">][</span><span class="s2">&quot;A1&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s2">&quot;Click the button!&quot;</span>
+<span class="n">book</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;macro_openpyxl.xlsm&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="xlsxwriter">
+<h3>XlsxWriter<a class="headerlink" href="#xlsxwriter" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span> <span class="k">as</span> <span class="nn">dt</span>
+<span class="kn">import</span> <span class="nn">xlsxwriter</span>
+<span class="kn">import</span> <span class="nn">excel</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Instantiate a workbook</span>
+<span class="n">book</span> <span class="o">=</span> <span class="n">xlsxwriter</span><span class="o">.</span><span class="n">Workbook</span><span class="p">(</span><span class="s2">&quot;xlxswriter.xlsx&quot;</span><span class="p">)</span>
+
+<span class="c1"># Add a sheet and give it a name</span>
+<span class="n">sheet</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">add_worksheet</span><span class="p">(</span><span class="s2">&quot;Sheet1&quot;</span><span class="p">)</span>
+
+<span class="c1"># Writing individual cells using A1 notation</span>
+<span class="c1"># and cell indices (0-based)</span>
+<span class="n">sheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;A1&quot;</span><span class="p">,</span> <span class="s2">&quot;Hello 1&quot;</span><span class="p">)</span>
+<span class="n">sheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;Hello 2&quot;</span><span class="p">)</span>
+
+<span class="c1"># Formatting: fill color, alignment, border and font</span>
+<span class="n">formatting</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">add_format</span><span class="p">({</span><span class="s2">&quot;font_color&quot;</span><span class="p">:</span> <span class="s2">&quot;#FF0000&quot;</span><span class="p">,</span>
+                              <span class="s2">&quot;bg_color&quot;</span><span class="p">:</span> <span class="s2">&quot;#FFFF00&quot;</span><span class="p">,</span>
+                              <span class="s2">&quot;bold&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;align&quot;</span><span class="p">:</span> <span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                              <span class="s2">&quot;border&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;border_color&quot;</span><span class="p">:</span> <span class="s2">&quot;#FF0000&quot;</span><span class="p">})</span>
+<span class="n">sheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;A3&quot;</span><span class="p">,</span> <span class="s2">&quot;Hello 3&quot;</span><span class="p">,</span> <span class="n">formatting</span><span class="p">)</span>
+
+<span class="c1"># Number formatting (using Excel&#39;s formatting strings)</span>
+<span class="n">number_format</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">add_format</span><span class="p">({</span><span class="s2">&quot;num_format&quot;</span><span class="p">:</span> <span class="s2">&quot;0.00&quot;</span><span class="p">})</span>
+<span class="n">sheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;A4&quot;</span><span class="p">,</span> <span class="mf">3.3333</span><span class="p">,</span> <span class="n">number_format</span><span class="p">)</span>
+
+<span class="c1"># Date formatting (using Excel&#39;s formatting strings)</span>
+<span class="n">date_format</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">add_format</span><span class="p">({</span><span class="s2">&quot;num_format&quot;</span><span class="p">:</span> <span class="s2">&quot;mm/dd/yy&quot;</span><span class="p">})</span>
+<span class="n">sheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;A5&quot;</span><span class="p">,</span> <span class="n">dt</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">13</span><span class="p">),</span> <span class="n">date_format</span><span class="p">)</span>
+
+<span class="c1"># Formula: you must use the English name of the formula</span>
+<span class="c1"># with commas as delimiters</span>
+<span class="n">sheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;A6&quot;</span><span class="p">,</span> <span class="s2">&quot;=SUM(A4, 2)&quot;</span><span class="p">)</span>
+
+<span class="c1"># Image</span>
+<span class="n">sheet</span><span class="o">.</span><span class="n">insert_image</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;images/python.png&quot;</span><span class="p">)</span>
+
+<span class="c1"># Two-dimensional list (we&#39;re using our excel module)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">[[</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;North&quot;</span><span class="p">,</span> <span class="s2">&quot;South&quot;</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;Last Year&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;This Year&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">]]</span>
+<span class="n">excel</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">sheet</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="s2">&quot;A10&quot;</span><span class="p">)</span>
+
+<span class="c1"># Chart: see the file &quot;sales_report_xlsxwriter.py&quot; in the</span>
+<span class="c1"># companion repo to see how you can work with indices</span>
+<span class="c1"># instead of cell addresses</span>
+<span class="n">chart</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">add_chart</span><span class="p">({</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;column&quot;</span><span class="p">})</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">set_title</span><span class="p">({</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Sales per Region&quot;</span><span class="p">})</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">({</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;=Sheet1!A11&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;categories&quot;</span><span class="p">:</span> <span class="s2">&quot;=Sheet1!B10:C10&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;values&quot;</span><span class="p">:</span> <span class="s2">&quot;=Sheet1!B11:C11&quot;</span><span class="p">})</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">({</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;=Sheet1!A12&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;categories&quot;</span><span class="p">:</span> <span class="s2">&quot;=Sheet1!B10:C10&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;values&quot;</span><span class="p">:</span> <span class="s2">&quot;=Sheet1!B12:C12&quot;</span><span class="p">})</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">set_x_axis</span><span class="p">({</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Regions&quot;</span><span class="p">})</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">set_y_axis</span><span class="p">({</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Sales&quot;</span><span class="p">})</span>
+<span class="n">sheet</span><span class="o">.</span><span class="n">insert_chart</span><span class="p">(</span><span class="s2">&quot;A15&quot;</span><span class="p">,</span> <span class="n">chart</span><span class="p">)</span>
+
+<span class="c1"># Closing the workbook creates the file on disk</span>
+<span class="n">book</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### book = xlsxwriter.Workbook(&quot;macro_xlxswriter.xlsm&quot;)</span>
+<span class="n">sheet</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">add_worksheet</span><span class="p">(</span><span class="s2">&quot;Sheet1&quot;</span><span class="p">)</span>
+<span class="n">sheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;A1&quot;</span><span class="p">,</span> <span class="s2">&quot;Click the button!&quot;</span><span class="p">)</span>
+<span class="n">book</span><span class="o">.</span><span class="n">add_vba_project</span><span class="p">(</span><span class="s2">&quot;xl/vbaProject.bin&quot;</span><span class="p">)</span>
+<span class="n">sheet</span><span class="o">.</span><span class="n">insert_button</span><span class="p">(</span><span class="s2">&quot;A3&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;macro&quot;</span><span class="p">:</span> <span class="s2">&quot;Hello&quot;</span><span class="p">,</span> <span class="s2">&quot;caption&quot;</span><span class="p">:</span> <span class="s2">&quot;Button 1&quot;</span><span class="p">,</span>
+                           <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="mi">130</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="mi">35</span><span class="p">})</span>
+<span class="n">book</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="pyxlsb">
+<h3>pyxlsb<a class="headerlink" href="#pyxlsb" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyxlsb</span>
+<span class="kn">import</span> <span class="nn">excel</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Loop through sheets. With pyxlsb, the workbook</span>
+<span class="c1"># and sheet objects can be used as context managers.</span>
+<span class="c1"># book.sheets returns a list of sheet names, not objects!</span>
+<span class="c1"># To get a sheet object, use get_sheet() instead.</span>
+<span class="k">with</span> <span class="n">pyxlsb</span><span class="o">.</span><span class="n">open_workbook</span><span class="p">(</span><span class="s2">&quot;xl/stores.xlsb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">book</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">sheet_name</span> <span class="ow">in</span> <span class="n">book</span><span class="o">.</span><span class="n">sheets</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">book</span><span class="o">.</span><span class="n">get_sheet</span><span class="p">(</span><span class="n">sheet_name</span><span class="p">)</span> <span class="k">as</span> <span class="n">sheet</span><span class="p">:</span>
+            <span class="n">dim</span> <span class="o">=</span> <span class="n">sheet</span><span class="o">.</span><span class="n">dimension</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sheet &#39;</span><span class="si">{</span><span class="n">sheet_name</span><span class="si">}</span><span class="s2">&#39; has &quot;</span> 
+                  <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">dim</span><span class="o">.</span><span class="n">h</span><span class="si">}</span><span class="s2"> rows and </span><span class="si">{</span><span class="n">dim</span><span class="o">.</span><span class="n">w</span><span class="si">}</span><span class="s2"> cols&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sheet &#39;2019&#39; has 7 rows and 5 cols
+Sheet &#39;2020&#39; has 7 rows and 5 cols
+Sheet &#39;2019-2020&#39; has 20 rows and 5 cols
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Read in the values of a range of cells by using our excel module.</span>
+<span class="c1"># Instead of &quot;2019&quot;, you could also use its index (1-based).</span>
+<span class="k">with</span> <span class="n">pyxlsb</span><span class="o">.</span><span class="n">open_workbook</span><span class="p">(</span><span class="s2">&quot;xl/stores.xlsb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">book</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">book</span><span class="o">.</span><span class="n">get_sheet</span><span class="p">(</span><span class="s2">&quot;2019&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">sheet</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">excel</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">sheet</span><span class="p">,</span> <span class="s2">&quot;B2&quot;</span><span class="p">)</span>
+<span class="n">data</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>  <span class="c1"># Print the first two rows</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyxlsb</span> <span class="kn">import</span> <span class="n">convert_date</span>
+<span class="n">convert_date</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">3</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s2">&quot;xl/stores.xlsb&quot;</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;pyxlsb&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="xlrd-xlwt-and-xlutils">
+<h3>xlrd, xlwt and xlutils<a class="headerlink" href="#xlrd-xlwt-and-xlutils" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="reading-with-xlrd">
+<h3>Reading with xlrd<a class="headerlink" href="#reading-with-xlrd" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">xlrd</span>
+<span class="kn">import</span> <span class="nn">xlwt</span>
+<span class="kn">from</span> <span class="nn">xlwt.Utils</span> <span class="kn">import</span> <span class="n">cell_to_rowcol2</span>
+<span class="kn">import</span> <span class="nn">xlutils</span>
+<span class="kn">import</span> <span class="nn">excel</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Open the workbook to read cell values. The file is</span>
+<span class="c1"># automatically closed again after loading the data.</span>
+<span class="n">book</span> <span class="o">=</span> <span class="n">xlrd</span><span class="o">.</span><span class="n">open_workbook</span><span class="p">(</span><span class="s2">&quot;xl/stores.xls&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get a list with all sheet names</span>
+<span class="n">book</span><span class="o">.</span><span class="n">sheet_names</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;2019&#39;, &#39;2020&#39;, &#39;2019-2020&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Loop through the sheet objects</span>
+<span class="k">for</span> <span class="n">sheet</span> <span class="ow">in</span> <span class="n">book</span><span class="o">.</span><span class="n">sheets</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">sheet</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2019
+2020
+2019-2020
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get a sheet object by name or index (0-based)</span>
+<span class="n">sheet</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">sheet_by_index</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">sheet</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">sheet_by_name</span><span class="p">(</span><span class="s2">&quot;2019&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Dimensions</span>
+<span class="n">sheet</span><span class="o">.</span><span class="n">nrows</span><span class="p">,</span> <span class="n">sheet</span><span class="o">.</span><span class="n">ncols</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(8, 6)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Read the value of a single cell</span>
+<span class="c1"># using &quot;A1&quot; notation and using cell indices (0-based).</span>
+<span class="c1"># The &quot;*&quot; unpacks the tuple that cell_to_rowcol2 returns </span>
+<span class="c1"># into individual arguments.</span>
+<span class="n">sheet</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="o">*</span><span class="n">cell_to_rowcol2</span><span class="p">(</span><span class="s2">&quot;B3&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">value</span>
+<span class="n">sheet</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;New York&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Read in a range of cell values by using our excel module</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">excel</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">sheet</span><span class="p">,</span> <span class="s2">&quot;B2&quot;</span><span class="p">)</span>
+<span class="n">data</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>  <span class="c1"># Print the first two rows</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[&#39;Store&#39;, &#39;Employees&#39;, &#39;Manager&#39;, &#39;Since&#39;, &#39;Flagship&#39;],
+ [&#39;New York&#39;, 10.0, &#39;Sarah&#39;, datetime.datetime(2018, 7, 20, 0, 0), False]]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="writing-with-xlwt">
+<h3>Writing with xlwt<a class="headerlink" href="#writing-with-xlwt" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">xlwt</span>
+<span class="kn">from</span> <span class="nn">xlwt.Utils</span> <span class="kn">import</span> <span class="n">cell_to_rowcol2</span>
+<span class="kn">import</span> <span class="nn">datetime</span> <span class="k">as</span> <span class="nn">dt</span>
+<span class="kn">import</span> <span class="nn">excel</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Instantiate a workbook</span>
+<span class="n">book</span> <span class="o">=</span> <span class="n">xlwt</span><span class="o">.</span><span class="n">Workbook</span><span class="p">()</span>
+
+<span class="c1"># Add a sheet and give it a name</span>
+<span class="n">sheet</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">add_sheet</span><span class="p">(</span><span class="s2">&quot;Sheet1&quot;</span><span class="p">)</span>
+
+<span class="c1"># Writing individual cells using A1 notation</span>
+<span class="c1"># and cell indices (0-based)</span>
+<span class="n">sheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="o">*</span><span class="n">cell_to_rowcol2</span><span class="p">(</span><span class="s2">&quot;A1&quot;</span><span class="p">),</span> <span class="s2">&quot;Hello 1&quot;</span><span class="p">)</span>
+<span class="n">sheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Hello 2&quot;</span><span class="p">)</span>
+
+<span class="c1"># Formatting: fill color, alignment, border and font</span>
+<span class="n">formatting</span> <span class="o">=</span> <span class="n">xlwt</span><span class="o">.</span><span class="n">easyxf</span><span class="p">(</span><span class="s2">&quot;font: bold on, color red;&quot;</span>
+                         <span class="s2">&quot;align: horiz center;&quot;</span>
+                         <span class="s2">&quot;borders: top_color red, bottom_color red,&quot;</span>
+                                  <span class="s2">&quot;right_color red, left_color red,&quot;</span>
+                                  <span class="s2">&quot;left thin, right thin,&quot;</span>
+                                  <span class="s2">&quot;top thin, bottom thin;&quot;</span>
+                         <span class="s2">&quot;pattern: pattern solid, fore_color yellow;&quot;</span><span class="p">)</span>
+<span class="n">sheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Hello 3&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">formatting</span><span class="p">)</span>
+
+<span class="c1"># Number formatting (using Excel&#39;s formatting strings)</span>
+<span class="n">number_format</span> <span class="o">=</span> <span class="n">xlwt</span><span class="o">.</span><span class="n">easyxf</span><span class="p">(</span><span class="n">num_format_str</span><span class="o">=</span><span class="s2">&quot;0.00&quot;</span><span class="p">)</span>
+<span class="n">sheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">3.3333</span><span class="p">,</span> <span class="n">number_format</span><span class="p">)</span>
+
+<span class="c1"># Date formatting (using Excel&#39;s formatting strings)</span>
+<span class="n">date_format</span> <span class="o">=</span> <span class="n">xlwt</span><span class="o">.</span><span class="n">easyxf</span><span class="p">(</span><span class="n">num_format_str</span><span class="o">=</span><span class="s2">&quot;mm/dd/yyyy&quot;</span><span class="p">)</span>
+<span class="n">sheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2012</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">date_format</span><span class="p">)</span>
+
+<span class="c1"># Formula: you must use the English name of the formula</span>
+<span class="c1"># with commas as delimiters</span>
+<span class="n">sheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">xlwt</span><span class="o">.</span><span class="n">Formula</span><span class="p">(</span><span class="s2">&quot;SUM(A4, 2)&quot;</span><span class="p">))</span>
+
+<span class="c1"># Two-dimensional list (we&#39;re using our excel module)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">[[</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;North&quot;</span><span class="p">,</span> <span class="s2">&quot;South&quot;</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;Last Year&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;This Year&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">]]</span>
+<span class="n">excel</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">sheet</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="s2">&quot;A10&quot;</span><span class="p">)</span>
+
+<span class="c1"># Picture (only allows to add bmp format)</span>
+<span class="n">sheet</span><span class="o">.</span><span class="n">insert_bitmap</span><span class="p">(</span><span class="s2">&quot;images/python.bmp&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># This writes the file to disk</span>
+<span class="n">book</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;xlwt.xls&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="editing-with-xlutils">
+<h3>Editing with xlutils<a class="headerlink" href="#editing-with-xlutils" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">xlutils.copy</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">book</span> <span class="o">=</span> <span class="n">xlrd</span><span class="o">.</span><span class="n">open_workbook</span><span class="p">(</span><span class="s2">&quot;xl/stores.xls&quot;</span><span class="p">,</span> <span class="n">formatting_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">book</span> <span class="o">=</span> <span class="n">xlutils</span><span class="o">.</span><span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">book</span><span class="p">)</span>
+<span class="n">book</span><span class="o">.</span><span class="n">get_sheet</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;changed!&quot;</span><span class="p">)</span>
+<span class="n">book</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;stores_edited.xls&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="advanced-topics">
+<h1>Advanced Topics<a class="headerlink" href="#advanced-topics" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="working-with-big-files">
+<h2>Working with Big Files<a class="headerlink" href="#working-with-big-files" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h3>Writing with OpenPyXL<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">book</span> <span class="o">=</span> <span class="n">openpyxl</span><span class="o">.</span><span class="n">Workbook</span><span class="p">(</span><span class="n">write_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># With write_only=True, book.active doesn&#39;t work</span>
+<span class="n">sheet</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">create_sheet</span><span class="p">()</span>
+<span class="c1"># This will produce a sheet with 1000 x 200 cells</span>
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+    <span class="n">sheet</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">200</span><span class="p">)))</span>
+<span class="n">book</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;openpyxl_optimized.xlsx&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="writing-with-xlsxwriter">
+<h3>Writing with XlsxWriter<a class="headerlink" href="#writing-with-xlsxwriter" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">book</span> <span class="o">=</span> <span class="n">xlsxwriter</span><span class="o">.</span><span class="n">Workbook</span><span class="p">(</span><span class="s2">&quot;xlsxwriter_optimized.xlsx&quot;</span><span class="p">,</span>
+                           <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;constant_memory&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+<span class="n">sheet</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">add_worksheet</span><span class="p">()</span>
+<span class="c1"># This will produce a sheet with 1000 x 200 cells</span>
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+    <span class="n">sheet</span><span class="o">.</span><span class="n">write_row</span><span class="p">(</span><span class="n">row</span> <span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">200</span><span class="p">)))</span>
+<span class="n">book</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id2">
+<h3>Reading with xlrd<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">xlrd</span><span class="o">.</span><span class="n">open_workbook</span><span class="p">(</span><span class="s2">&quot;xl/stores.xls&quot;</span><span class="p">,</span> <span class="n">on_demand</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">as</span> <span class="n">book</span><span class="p">:</span>
+    <span class="n">sheet</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">sheet_by_index</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># Only loads the first sheet</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">xlrd</span><span class="o">.</span><span class="n">open_workbook</span><span class="p">(</span><span class="s2">&quot;xl/stores.xls&quot;</span><span class="p">,</span> <span class="n">on_demand</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">as</span> <span class="n">book</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">ExcelFile</span><span class="p">(</span><span class="n">book</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;xlrd&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id3">
+<h3>Reading with OpenPyXL<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">book</span> <span class="o">=</span> <span class="n">openpyxl</span><span class="o">.</span><span class="n">load_workbook</span><span class="p">(</span><span class="s2">&quot;xl/big.xlsx&quot;</span><span class="p">,</span>
+                              <span class="n">data_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">read_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                              <span class="n">keep_links</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="c1"># Perform the desired read operations here</span>
+<span class="n">book</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>  <span class="c1"># Required with read_only=True</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="reading-in-parallel">
+<h3>Reading in Parallel<a class="headerlink" href="#reading-in-parallel" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s2">&quot;xl/big.xlsx&quot;</span><span class="p">,</span>
+                     <span class="n">sheet_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;openpyxl&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="kn">import</span> <span class="nn">parallel_pandas</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">parallel_pandas</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s2">&quot;xl/big.xlsx&quot;</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="formatting-dataframes-in-excel">
+<h2>Formatting DataFrames in Excel<a class="headerlink" href="#formatting-dataframes-in-excel" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">ExcelFile</span><span class="p">(</span><span class="s2">&quot;xl/stores.xlsx&quot;</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;openpyxl&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">xlfile</span><span class="p">:</span>
+    <span class="c1"># Read a DataFrame</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">xlfile</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="s2">&quot;2020&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Get the OpenPyXL workbook object</span>
+    <span class="n">book</span> <span class="o">=</span> <span class="n">xlfile</span><span class="o">.</span><span class="n">book</span>
+
+    <span class="c1"># From here on, it&#39;s OpenPyXL code</span>
+    <span class="n">sheet</span> <span class="o">=</span> <span class="n">book</span><span class="p">[</span><span class="s2">&quot;2019&quot;</span><span class="p">]</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">sheet</span><span class="p">[</span><span class="s2">&quot;B3&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>  <span class="c1"># Read a single value</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">ExcelWriter</span><span class="p">(</span><span class="s2">&quot;pandas_and_openpyxl.xlsx&quot;</span><span class="p">,</span>
+                    <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;openpyxl&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">writer</span><span class="p">:</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;col1&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="s2">&quot;col2&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]})</span>
+    <span class="c1"># Write a DataFrame</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">writer</span><span class="p">,</span> <span class="s2">&quot;Sheet1&quot;</span><span class="p">,</span> <span class="n">startrow</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">startcol</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="c1"># Get the OpenPyXL workbook and sheet objects</span>
+    <span class="n">book</span> <span class="o">=</span> <span class="n">writer</span><span class="o">.</span><span class="n">book</span>
+    <span class="n">sheet</span> <span class="o">=</span> <span class="n">writer</span><span class="o">.</span><span class="n">sheets</span><span class="p">[</span><span class="s2">&quot;Sheet1&quot;</span><span class="p">]</span>
+
+    <span class="c1"># From here on, it&#39;s OpenPyXL code</span>
+    <span class="n">sheet</span><span class="p">[</span><span class="s2">&quot;A1&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s2">&quot;This is a Title&quot;</span>  <span class="c1"># Write a single cell value</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;col1&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;col2&quot;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]},</span>
+                   <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;row1&quot;</span><span class="p">,</span> <span class="s2">&quot;row2&quot;</span><span class="p">])</span>
+<span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;ix&quot;</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">openpyxl.styles</span> <span class="kn">import</span> <span class="n">PatternFill</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">ExcelWriter</span><span class="p">(</span><span class="s2">&quot;formatting_openpyxl.xlsx&quot;</span><span class="p">,</span>
+                    <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;openpyxl&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">writer</span><span class="p">:</span>
+    <span class="c1"># Write out the df with the default formatting to A1</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">writer</span><span class="p">,</span> <span class="n">startrow</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">startcol</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># Write out the df with custom index/header formatting to A6    </span>
+    <span class="n">startrow</span><span class="p">,</span> <span class="n">startcol</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span>
+    <span class="c1"># 1. Write out the data part of the DataFrame</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">writer</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">startrow</span><span class="o">=</span><span class="n">startrow</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">startcol</span><span class="o">=</span><span class="n">startcol</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># Get the sheet object and create a style object</span>
+    <span class="n">sheet</span> <span class="o">=</span> <span class="n">writer</span><span class="o">.</span><span class="n">sheets</span><span class="p">[</span><span class="s2">&quot;Sheet1&quot;</span><span class="p">]</span>
+    <span class="n">style</span> <span class="o">=</span> <span class="n">PatternFill</span><span class="p">(</span><span class="n">fgColor</span><span class="o">=</span><span class="s2">&quot;D9D9D9&quot;</span><span class="p">,</span> <span class="n">fill_type</span><span class="o">=</span><span class="s2">&quot;solid&quot;</span><span class="p">)</span>
+
+    <span class="c1"># 2. Write out the styled column headers</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
+        <span class="n">sheet</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="n">startrow</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="n">i</span> <span class="o">+</span> <span class="n">startcol</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span>
+                   <span class="n">value</span><span class="o">=</span><span class="n">col</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span> <span class="o">=</span> <span class="n">style</span>
+
+    <span class="c1"># 3. Write out the styled index</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="k">else</span> <span class="kc">None</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">index</span><span class="p">):</span>
+        <span class="n">sheet</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="n">i</span> <span class="o">+</span> <span class="n">startrow</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="n">startcol</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+                   <span class="n">value</span><span class="o">=</span><span class="n">row</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span> <span class="o">=</span> <span class="n">style</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Formatting index/headers with XlsxWriter</span>
+<span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">ExcelWriter</span><span class="p">(</span><span class="s2">&quot;formatting_xlsxwriter.xlsx&quot;</span><span class="p">,</span>
+                    <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;xlsxwriter&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">writer</span><span class="p">:</span>
+    <span class="c1"># Write out the df with the default formatting to A1</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">writer</span><span class="p">,</span> <span class="n">startrow</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">startcol</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># Write out the df with custom index/header formatting to A6</span>
+    <span class="n">startrow</span><span class="p">,</span> <span class="n">startcol</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span>
+    <span class="c1"># 1. Write out the data part of the DataFrame</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">writer</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">startrow</span><span class="o">=</span><span class="n">startrow</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">startcol</span><span class="o">=</span><span class="n">startcol</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># Get the book and sheet object and create a style object</span>
+    <span class="n">book</span> <span class="o">=</span> <span class="n">writer</span><span class="o">.</span><span class="n">book</span>
+    <span class="n">sheet</span> <span class="o">=</span> <span class="n">writer</span><span class="o">.</span><span class="n">sheets</span><span class="p">[</span><span class="s2">&quot;Sheet1&quot;</span><span class="p">]</span>
+    <span class="n">style</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">add_format</span><span class="p">({</span><span class="s2">&quot;bg_color&quot;</span><span class="p">:</span> <span class="s2">&quot;#D9D9D9&quot;</span><span class="p">})</span>
+
+    <span class="c1"># 2. Write out the styled column headers</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
+        <span class="n">sheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">startrow</span><span class="p">,</span> <span class="n">startcol</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">style</span><span class="p">)</span>
+
+    <span class="c1"># 3. Write out the styled index</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="k">else</span> <span class="kc">None</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">index</span><span class="p">):</span>
+        <span class="n">sheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">startrow</span> <span class="o">+</span> <span class="n">i</span><span class="p">,</span> <span class="n">startcol</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">style</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">openpyxl.styles</span> <span class="kn">import</span> <span class="n">Alignment</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">ExcelWriter</span><span class="p">(</span><span class="s2">&quot;data_format_openpyxl.xlsx&quot;</span><span class="p">,</span>
+                    <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;openpyxl&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">writer</span><span class="p">:</span>
+    <span class="c1"># Write out the DataFrame</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">writer</span><span class="p">)</span>
+    
+    <span class="c1"># Get the book and sheet objects</span>
+    <span class="n">book</span> <span class="o">=</span> <span class="n">writer</span><span class="o">.</span><span class="n">book</span>
+    <span class="n">sheet</span> <span class="o">=</span> <span class="n">writer</span><span class="o">.</span><span class="n">sheets</span><span class="p">[</span><span class="s2">&quot;Sheet1&quot;</span><span class="p">]</span>
+    
+    <span class="c1"># Formatting individual cells</span>
+    <span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nrows</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ncols</span><span class="p">):</span>
+            <span class="c1"># +1 to account for the header/index</span>
+            <span class="c1"># +1 since OpenPyXL is 1-based</span>
+            <span class="n">cell</span> <span class="o">=</span> <span class="n">sheet</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="n">row</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span>
+                              <span class="n">column</span><span class="o">=</span><span class="n">col</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="n">cell</span><span class="o">.</span><span class="n">number_format</span> <span class="o">=</span> <span class="s2">&quot;0.000&quot;</span>
+            <span class="n">cell</span><span class="o">.</span><span class="n">alignment</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">(</span><span class="n">horizontal</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">ExcelWriter</span><span class="p">(</span><span class="s2">&quot;data_format_xlsxwriter.xlsx&quot;</span><span class="p">,</span>
+                    <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;xlsxwriter&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">writer</span><span class="p">:</span>
+    <span class="c1"># Write out the DataFrame</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">writer</span><span class="p">)</span>
+
+    <span class="c1"># Get the book and sheet objects    </span>
+    <span class="n">book</span> <span class="o">=</span> <span class="n">writer</span><span class="o">.</span><span class="n">book</span>
+    <span class="n">sheet</span> <span class="o">=</span> <span class="n">writer</span><span class="o">.</span><span class="n">sheets</span><span class="p">[</span><span class="s2">&quot;Sheet1&quot;</span><span class="p">]</span>
+    
+    <span class="c1"># Formatting the columns (individual cells can&#39;t be formatted)</span>
+    <span class="n">number_format</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">add_format</span><span class="p">({</span><span class="s2">&quot;num_format&quot;</span><span class="p">:</span> <span class="s2">&quot;0.000&quot;</span><span class="p">,</span>
+                                     <span class="s2">&quot;align&quot;</span><span class="p">:</span> <span class="s2">&quot;center&quot;</span><span class="p">})</span>
+    <span class="n">sheet</span><span class="o">.</span><span class="n">set_column</span><span class="p">(</span><span class="n">first_col</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">last_col</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                     <span class="n">cell_format</span><span class="o">=</span><span class="n">number_format</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">applymap</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s2">&quot;number-format: 0.000;&quot;</span>
+                            <span class="s2">&quot;text-align: center&quot;</span><span class="p">)</span>\
+        <span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="s2">&quot;styled.xlsx&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;Date&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">dt</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)],</span>
+                   <span class="s2">&quot;Datetime&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)]})</span>
+<span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">ExcelWriter</span><span class="p">(</span><span class="s2">&quot;date.xlsx&quot;</span><span class="p">,</span>
+                    <span class="n">date_format</span><span class="o">=</span><span class="s2">&quot;yyyy-mm-dd&quot;</span><span class="p">,</span>
+                    <span class="n">datetime_format</span><span class="o">=</span><span class="s2">&quot;yyyy-mm-dd hh:mm:ss&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">writer</span><span class="p">:</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">writer</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="ch07.html" title="previous page">Ch7 Excel File Manipulation with pandas</a>
+    <a class='right-next' id="next-link" href="ch09.html" title="next page">Ch09 Excel Automation</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By The Jupyter Book Community<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    
+  </body>
+</html>
